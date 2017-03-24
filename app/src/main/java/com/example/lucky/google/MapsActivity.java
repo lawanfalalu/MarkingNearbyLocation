@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.IdRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabSelectedListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,11 +48,86 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    BottomBar bootomBar;
+    static int a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
+        //Bottom Bar
+        bootomBar=BottomBar.attach (this,savedInstanceState);
+        bootomBar.setItemsFromMenu (R.menu.bottom_bar, new OnMenuTabSelectedListener() {
+            @Override
+            public void onMenuItemSelected(@IdRes int menuItemId) {
+
+
+                if(menuItemId==R.id.hospital){
+                        a=0;
+                    String Hospital = "hospital";
+                        Log.d("onClick", "Button is Clicked");
+                        mMap.clear();
+                        String url = getUrl(latitude, longitude, Hospital);
+                        Object[] DataTransfer = new Object[2];
+                        DataTransfer[0] = mMap;
+                        DataTransfer[1] = url;
+                        Log.d("onClick", url);
+                        GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+                        getNearbyPlacesData.execute(DataTransfer);
+
+
+                }
+                else if(menuItemId==R.id.restro){
+                    String Restaurant = "restaurant";
+                    Log.d("onClick", "Button is Clicked");
+                    mMap.clear();
+                    String url = getUrl(latitude, longitude, Restaurant);
+                    Object[] DataTransfer = new Object[2];
+                    DataTransfer[0] = mMap;
+                    DataTransfer[1] = url;
+                    Log.d("onClick", url);
+                    GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+                    getNearbyPlacesData.execute(DataTransfer);
+
+                }
+                else if(menuItemId==R.id.petrol){
+
+                    String Petrol  = "gas_station";
+                    Log.d("onClick", "Button is Clicked");
+                    mMap.clear();
+                    String url = getUrl(latitude, longitude, Petrol);
+                    Object[] DataTransfer = new Object[2];
+                    DataTransfer[0] = mMap;
+                    DataTransfer[1] = url;
+                    Log.d("onClick", url);
+                    GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+                    getNearbyPlacesData.execute(DataTransfer);
+
+
+                }
+                else if(menuItemId==R.id.bus){
+                    String Bus  = "bus_station";
+                    Log.d("onClick", "Button is Clicked");
+                    mMap.clear();
+                    String url = getUrl(latitude, longitude, Bus);
+                    Object[] DataTransfer = new Object[2];
+                    DataTransfer[0] = mMap;
+                    DataTransfer[1] = url;
+                    Log.d("onClick", url);
+                    GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+                    getNearbyPlacesData.execute(DataTransfer);
+
+                }
+
+
+            }
+        });
+        bootomBar.mapColorForTab (0, "#D50000");
+        bootomBar.mapColorForTab (1, "#3F51B5");
+        bootomBar.mapColorForTab (2, "#2196F3");
+        bootomBar.mapColorForTab (3, "#03A9F4");
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();

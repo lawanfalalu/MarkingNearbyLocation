@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/hospital"
+        android:icon="@mipmap/ic_hospita"
+        android:title="Hospitals" />
+
+    <item
+        android:id="@+id/restro"
+        android:icon="@mipmap/ic_restro"
+        android:title="Restaurant" />
+    <item
+        android:id="@+id/petrol"
+        android:icon="@mipmap/ic_petrol"
+        android:title="Petrol pumps"/>
+    <item
+        android:id="@+id/bus"
+        android:icon="@mipmap/ic_bus"
+        android:title="Bus" />
+</menu>
